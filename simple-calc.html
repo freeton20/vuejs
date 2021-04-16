@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <style>
+        .button {
+            flex: 33%;
+            cursor: pointer;
+            background: lightgray;
+            color: black;
+            font-size: 2em;
+            font-weight: bold;
+            border: 1px darkgray dashed;
+            text-align: center;
+        }
+
+        .button:hover {
+            background: gray;
+            color: white;
+        }
+
+        .calc {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        input {
+            width: 100%;
+            height: 30px;
+            text-align: right;
+            font-size: 2em;
+        }
+        .calc {
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="calc">
+        <input id="result" type="text" v-bind:value="result">
+        <div v-for="button in buttons" class="button" @click="add(button)">{{ button }}</div>
+        <div v-for="operation in operations" class="button" @click="add(operation)">{{ operation }}</div>
+        <div class="button" @click="reset()">reset</div>
+        <div class="button" @click="calculate()">=</div>
+
+    </div>
+</div>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            result: '',
+            buttons: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+            operations: ['+', '-', '/', '*'],
+        },
+        methods: {
+            add: function (char) {
+                char = char.toString();
+                this.result += char;
+            },
+            calculate: function () {
+                this.result = eval(this.result);
+            },
+            reset: function () {
+                this.result = '';
+            }
+        }
+
+    })
+</script>
+</body>
+</html>
